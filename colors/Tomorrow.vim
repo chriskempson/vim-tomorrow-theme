@@ -1,339 +1,209 @@
-" Tomorrow - Full Colour and 256 Colour
+" Tomorrow Night
 " http://chriskempson.com
-"
-" Hex colour conversion functions borrowed from the theme "Desert256""
 
-" Default GUI Colours
-let s:foreground = "4d4d4c"
-let s:background = "ffffff"
-let s:selection = "c5cce9"
-let s:line = "e9efff"
-let s:comment = "8e908c"
-let s:red = "c82829"
-let s:orange = "f5871f"
-let s:yellow = "eab700"
-let s:green = "718c00"
-let s:blue = "4271ae"
-let s:purple = "8959a8"
+" GUI Base16 Colour Definitions
+let s:gui00 = "151515"
+let s:gui01 = "202020"
+let s:gui02 = "303030"
+let s:gui03 = "505050"
+let s:gui04 = "b0b0b0"
+let s:gui05 = "d0d0d0"
+let s:gui06 = "e0e0e0"
+let s:gui07 = "f5f5f5"
+let s:gui08 = "ac4142"
+let s:gui09 = "d28445"
+let s:gui0A = "f4bf75"
+let s:gui0B = "90a959"
+let s:gui0C = "75b5aa"
+let s:gui0D = "6a9fb5"
+let s:gui0E = "aa759f"
+let s:gui0F = "8b415c"
 
-set background=light
+" Terminal Base16 Colour Definitions
+let s:cterm00 = "00"
+let s:cterm01 = "10"
+let s:cterm02 = "11"
+let s:cterm03 = "12"
+let s:cterm04 = "13"
+let s:cterm05 = "14"
+let s:cterm06 = "15"
+let s:cterm07 = "07"
+let s:cterm08 = "01"
+let s:cterm09 = "08"
+let s:cterm0A = "03"
+let s:cterm0B = "02"
+let s:cterm0C = "06"
+let s:cterm0D = "04"
+let s:cterm0E = "05"
+let s:cterm0F = "09"
+
+" Theme Setup
 hi clear
 syntax reset
-
 let g:colors_name = "Tomorrow"
 
-if has("gui_running") || &t_Co == 88 || &t_Co == 256
-	" Returns an approximate grey index for the given grey level
-	fun <SID>grey_number(x)
-		if &t_Co == 88
-			if a:x < 23
-				return 0
-			elseif a:x < 69
-				return 1
-			elseif a:x < 103
-				return 2
-			elseif a:x < 127
-				return 3
-			elseif a:x < 150
-				return 4
-			elseif a:x < 173
-				return 5
-			elseif a:x < 196
-				return 6
-			elseif a:x < 219
-				return 7
-			elseif a:x < 243
-				return 8
-			else
-				return 9
-			endif
-		else
-			if a:x < 14
-				return 0
-			else
-				let l:n = (a:x - 8) / 10
-				let l:m = (a:x - 8) % 10
-				if l:m < 5
-					return l:n
-				else
-					return l:n + 1
-				endif
-			endif
-		endif
-	endfun
+" Highlighting function
+fun! <SID>hi(group, guifg, guibg, ctermfg, ctermbg, attr)
+  if a:guifg != ""
+    exec "hi " . a:group . " guifg=#" . a:guifg
+  endif
+  if a:guibg != ""
+    exec "hi " . a:group . " guibg=#" . a:guibg
+  endif
+  if a:ctermfg != ""
+    exec "hi " . a:group . " ctermfg=" . a:ctermfg
+  endif
+  if a:ctermbg != ""
+    exec "hi " . a:group . " ctermbg=" . a:ctermbg
+  endif
+  if a:attr != ""
+    exec "hi " . a:group . " gui=" . a:attr . " cterm=" . a:attr
+  endif 
+endfun
 
-	" Returns the actual grey level represented by the grey index
-	fun <SID>grey_level(n)
-		if &t_Co == 88
-			if a:n == 0
-				return 0
-			elseif a:n == 1
-				return 46
-			elseif a:n == 2
-				return 92
-			elseif a:n == 3
-				return 115
-			elseif a:n == 4
-				return 139
-			elseif a:n == 5
-				return 162
-			elseif a:n == 6
-				return 185
-			elseif a:n == 7
-				return 208
-			elseif a:n == 8
-				return 231
-			else
-				return 255
-			endif
-		else
-			if a:n == 0
-				return 0
-			else
-				return 8 + (a:n * 10)
-			endif
-		endif
-	endfun
+" Vim Editor Colours
+call <SID>hi("Bold",          "", "", "", "", "bold")
+call <SID>hi("Debug",         s:gui08, "", s:cterm08, "", "")
+call <SID>hi("Directory",     s:gui0D, "", s:cterm0D, "", "")
+call <SID>hi("ErrorMsg",      s:gui08, s:gui00, s:cterm08, s:cterm00, "")
+call <SID>hi("Exception",     s:gui08, "", s:cterm08, "", "")
+call <SID>hi("FoldColumn",    "", s:gui01, "", s:cterm01, "")
+call <SID>hi("Folded",        s:gui03, s:gui01, s:cterm03, s:cterm01, "")
+call <SID>hi("IncSearch",     s:gui0A, "", s:cterm0A, "", "")
+call <SID>hi("Italic",        "", "", "", "", "none")
+call <SID>hi("Macro",         s:gui08, "", s:cterm08, "", "")
+call <SID>hi("MatchParen",    "", s:gui03, "", s:cterm03, "")
+call <SID>hi("ModeMsg",       s:gui0B, "", s:cterm0B, "", "")
+call <SID>hi("MoreMsg",       s:gui0B, "", s:cterm0B, "", "")
+call <SID>hi("NonText",       s:gui03, "", s:cterm03, "", "")
+call <SID>hi("Question",      s:gui0A, "", s:cterm0A, "", "")
+call <SID>hi("Search",        s:gui0A, s:gui01, s:cterm0A, s:cterm01,  "reverse")
+call <SID>hi("SpecialKey",    s:gui03, "", s:cterm03, "", "")
+call <SID>hi("Title",         s:gui05, s:gui01, s:cterm05, s:cterm01, "reverse")
+call <SID>hi("TooLong",       s:gui08, "", s:cterm08, "", "")
+call <SID>hi("Underlined",    s:gui08, "", s:cterm08, "", "")
+call <SID>hi("Visual",        "", s:gui02, "", s:cterm02, "")
+call <SID>hi("VisualNOS",     s:gui08, "", s:cterm08, "", "")
+call <SID>hi("WarningMsg",    s:gui08, "", s:cterm08, "", "")
+call <SID>hi("WildMenu",      s:gui08, "", s:cterm08, "", "")
 
-	" Returns the palette index for the given grey index
-	fun <SID>grey_colour(n)
-		if &t_Co == 88
-			if a:n == 0
-				return 16
-			elseif a:n == 9
-				return 79
-			else
-				return 79 + a:n
-			endif
-		else
-			if a:n == 0
-				return 16
-			elseif a:n == 25
-				return 231
-			else
-				return 231 + a:n
-			endif
-		endif
-	endfun
-
-	" Returns an approximate colour index for the given colour level
-	fun <SID>rgb_number(x)
-		if &t_Co == 88
-			if a:x < 69
-				return 0
-			elseif a:x < 172
-				return 1
-			elseif a:x < 230
-				return 2
-			else
-				return 3
-			endif
-		else
-			if a:x < 75
-				return 0
-			else
-				let l:n = (a:x - 55) / 40
-				let l:m = (a:x - 55) % 40
-				if l:m < 20
-					return l:n
-				else
-					return l:n + 1
-				endif
-			endif
-		endif
-	endfun
-
-	" Returns the actual colour level for the given colour index
-	fun <SID>rgb_level(n)
-		if &t_Co == 88
-			if a:n == 0
-				return 0
-			elseif a:n == 1
-				return 139
-			elseif a:n == 2
-				return 205
-			else
-				return 255
-			endif
-		else
-			if a:n == 0
-				return 0
-			else
-				return 55 + (a:n * 40)
-			endif
-		endif
-	endfun
-
-	" Returns the palette index for the given R/G/B colour indices
-	fun <SID>rgb_colour(x, y, z)
-		if &t_Co == 88
-			return 16 + (a:x * 16) + (a:y * 4) + a:z
-		else
-			return 16 + (a:x * 36) + (a:y * 6) + a:z
-		endif
-	endfun
-
-	" Returns the palette index to approximate the given R/G/B colour levels
-	fun <SID>colour(r, g, b)
-		" Get the closest grey
-		let l:gx = <SID>grey_number(a:r)
-		let l:gy = <SID>grey_number(a:g)
-		let l:gz = <SID>grey_number(a:b)
-
-		" Get the closest colour
-		let l:x = <SID>rgb_number(a:r)
-		let l:y = <SID>rgb_number(a:g)
-		let l:z = <SID>rgb_number(a:b)
-
-		if l:gx == l:gy && l:gy == l:gz
-			" There are two possibilities
-			let l:dgr = <SID>grey_level(l:gx) - a:r
-			let l:dgg = <SID>grey_level(l:gy) - a:g
-			let l:dgb = <SID>grey_level(l:gz) - a:b
-			let l:dgrey = (l:dgr * l:dgr) + (l:dgg * l:dgg) + (l:dgb * l:dgb)
-			let l:dr = <SID>rgb_level(l:gx) - a:r
-			let l:dg = <SID>rgb_level(l:gy) - a:g
-			let l:db = <SID>rgb_level(l:gz) - a:b
-			let l:drgb = (l:dr * l:dr) + (l:dg * l:dg) + (l:db * l:db)
-			if l:dgrey < l:drgb
-				" Use the grey
-				return <SID>grey_colour(l:gx)
-			else
-				" Use the colour
-				return <SID>rgb_colour(l:x, l:y, l:z)
-			endif
-		else
-			" Only one possibility
-			return <SID>rgb_colour(l:x, l:y, l:z)
-		endif
-	endfun
-
-	" Returns the palette index to approximate the 'rrggbb' hex string
-	fun <SID>rgb(rgb)
-		let l:r = ("0x" . strpart(a:rgb, 0, 2)) + 0
-		let l:g = ("0x" . strpart(a:rgb, 2, 2)) + 0
-		let l:b = ("0x" . strpart(a:rgb, 4, 2)) + 0
-
-		return <SID>colour(l:r, l:g, l:b)
-	endfun
-
-	" Sets the highlighting for the given group
-	fun <SID>X(group, fg, bg, attr)
-		if a:fg != ""
-			exec "hi " . a:group . " guifg=#" . a:fg . " ctermfg=" . <SID>rgb(a:fg)
-		endif
-		if a:bg != ""
-			exec "hi " . a:group . " guibg=#" . a:bg . " ctermbg=" . <SID>rgb(a:bg)
-		endif
-		if a:attr != ""
-			exec "hi " . a:group . " gui=" . a:attr . " cterm=" . a:attr
-		endif
-	endfun
-
-	" Vim Highlighting
-	call <SID>X("Normal", s:foreground, s:background, "")
-	call <SID>X("LineNr", s:selection, "", "")
-	call <SID>X("NonText", s:selection, "", "")
-	call <SID>X("SpecialKey", s:selection, "", "")
-	call <SID>X("Search", s:background, s:yellow, "")
-	call <SID>X("TabLine", s:foreground, s:background, "reverse")
-	call <SID>X("StatusLine", s:window, s:yellow, "reverse")
-	call <SID>X("StatusLineNC", s:window, s:foreground, "reverse")
-	call <SID>X("VertSplit", s:window, s:window, "none")
-	call <SID>X("Visual", "", s:selection, "")
-	call <SID>X("Directory", s:blue, "", "")
-	call <SID>X("ModeMsg", s:green, "", "")
-	call <SID>X("MoreMsg", s:green, "", "")
-	call <SID>X("Question", s:green, "", "")
-	call <SID>X("WarningMsg", s:red, "", "")
-	call <SID>X("MatchParen", "", s:selection, "")
-	call <SID>X("Folded", s:comment, s:background, "")
-	call <SID>X("FoldColumn", "", s:background, "")
-	if version >= 700
-		call <SID>X("CursorLine", "", s:line, "none")
-		call <SID>X("CursorColumn", "", s:line, "none")
-		call <SID>X("PMenu", s:foreground, s:selection, "none")
-		call <SID>X("PMenuSel", s:foreground, s:selection, "reverse")
-	end
-	if version >= 703
-		call <SID>X("ColorColumn", "", s:line, "none")
-	end
-
-	" Standard Highlighting
-	call <SID>X("Comment", s:comment, "", "")
-	call <SID>X("Todo", s:comment, s:background, "")
-	call <SID>X("Title", s:comment, "", "")
-	call <SID>X("Identifier", s:red, "", "none")
-	call <SID>X("Statement", s:foreground, "", "")
-	call <SID>X("Conditional", s:foreground, "", "")
-	call <SID>X("Repeat", s:foreground, "", "")
-	call <SID>X("Structure", s:purple, "", "")
-	call <SID>X("Function", s:blue, "", "")
-	call <SID>X("Constant", s:orange, "", "")
-	call <SID>X("String", s:green, "", "")
-	call <SID>X("Special", s:foreground, "", "")
-	call <SID>X("PreProc", s:purple, "", "")
-	call <SID>X("Operator", s:aqua, "", "none")
-	call <SID>X("Type", s:blue, "", "none")
-	call <SID>X("Define", s:purple, "", "none")
-	call <SID>X("Include", s:blue, "", "")
-	"call <SID>X("Ignore", "666666", "", "")
-
-	" Vim Highlighting
-	call <SID>X("vimCommand", s:red, "", "none")
-
-	" C Highlighting
-	call <SID>X("cType", s:yellow, "", "")
-	call <SID>X("cStorageClass", s:purple, "", "")
-	call <SID>X("cConditional", s:purple, "", "")
-	call <SID>X("cRepeat", s:purple, "", "")
-
-	" PHP Highlighting
-	call <SID>X("phpVarSelector", s:red, "", "")
-	call <SID>X("phpKeyword", s:purple, "", "")
-	call <SID>X("phpRepeat", s:purple, "", "")
-	call <SID>X("phpConditional", s:purple, "", "")
-	call <SID>X("phpStatement", s:purple, "", "")
-	call <SID>X("phpMemberSelector", s:foreground, "", "")
-
-	" Ruby Highlighting
-	call <SID>X("rubySymbol", s:green, "", "")
-	call <SID>X("rubyConstant", s:yellow, "", "")
-	call <SID>X("rubyAttribute", s:blue, "", "")
-	call <SID>X("rubyInclude", s:blue, "", "")
-	call <SID>X("rubyLocalVariableOrMethod", s:orange, "", "")
-	call <SID>X("rubyCurlyBlock", s:orange, "", "")
-	call <SID>X("rubyStringDelimiter", s:green, "", "")
-	call <SID>X("rubyInterpolationDelimiter", s:orange, "", "")
-	call <SID>X("rubyConditional", s:purple, "", "")
-	call <SID>X("rubyRepeat", s:purple, "", "")
-
-	" Python Highlighting
-	call <SID>X("pythonInclude", s:purple, "", "")
-	call <SID>X("pythonStatement", s:purple, "", "")
-	call <SID>X("pythonConditional", s:purple, "", "")
-	call <SID>X("pythonFunction", s:blue, "", "")
-
-	" JavaScript Highlighting
-	call <SID>X("javaScriptBraces", s:foreground, "", "")
-	call <SID>X("javaScriptFunction", s:purple, "", "")
-	call <SID>X("javaScriptConditional", s:purple, "", "")
-	call <SID>X("javaScriptRepeat", s:purple, "", "")
-	call <SID>X("javaScriptNumber", s:orange, "", "")
-	call <SID>X("javaScriptMember", s:orange, "", "")
-
-	" Diff Highlighting
-	call <SID>X("diffAdded", s:green, "", "")
-	call <SID>X("diffRemoved", s:red, "", "")
-
-	" Delete Functions
-	delf <SID>X
-	delf <SID>rgb
-	delf <SID>colour
-	delf <SID>rgb_colour
-	delf <SID>rgb_level
-	delf <SID>rgb_number
-	delf <SID>grey_colour
-	delf <SID>grey_level
-	delf <SID>grey_number
+if &background == "dark"
+  call <SID>hi("Cursor",        s:gui05, "", s:cterm05, "", "")
+  call <SID>hi("Normal",        s:gui05, s:gui00, s:cterm05, s:cterm00, "")
+  call <SID>hi("LineNr",        s:gui03, s:gui01, s:cterm03, s:cterm01, "")
+  call <SID>hi("StatusLine",    s:gui03, s:gui01, s:cterm03, s:cterm01, "none")
+  call <SID>hi("StatusLineNC",  s:gui03, s:gui01, s:cterm03, s:cterm01, "none")
+  call <SID>hi("VertSplit",     s:gui02, s:gui02, s:cterm02, s:cterm02, "none")
+  
+  if version >= 700
+    call <SID>hi("ColorColumn",  "", s:gui01, "", s:cterm01, "none")
+    call <SID>hi("CursorColumn",  "", s:gui01, "", s:cterm01, "none")
+    call <SID>hi("CursorLine",    "", s:gui01, "", s:cterm01, "none")
+    call <SID>hi("MatchParen",    s:gui02, s:gui05, s:cterm02, s:cterm05, "none")
+    call <SID>hi("PMenu",         s:gui04, s:gui01, s:cterm04, s:cterm01, "none")
+    call <SID>hi("PMenuSel",      s:gui04, s:gui01, s:cterm04, s:cterm01, "reverse")
+    call <SID>hi("TabLine",       s:gui05, s:gui01, s:cterm05, s:cterm01, "reverse")
+    call <SID>hi("TabLineFill",   s:gui06, s:gui01, s:cterm06, s:cterm01, "reverse")
+    call <SID>hi("TabLineSel",    s:gui06, s:gui01, s:cterm06, s:cterm01, "reverse")
+  end
+else
+  call <SID>hi("Cursor",        s:gui02, "", s:cterm02, "", "")
+  call <SID>hi("Normal",        s:gui02, s:gui07, s:cterm02, s:cterm07, "")
+  call <SID>hi("LineNr",        s:gui04, s:gui06, s:cterm04, s:cterm06, "")
+  call <SID>hi("StatusLine",    s:gui04, s:gui06, s:cterm04, s:cterm06, "none")
+  call <SID>hi("StatusLineNC",  s:gui04, s:gui06, s:cterm04, s:cterm06, "none")
+  call <SID>hi("VertSplit",     s:gui05, s:gui05, s:cterm05, s:cterm05, "none")
+  
+  if version >= 700
+    call <SID>hi("CursorColumn",  "", s:gui06, "", s:cterm06, "none")
+    call <SID>hi("CursorLine",    "", s:gui06, "", s:cterm06, "none")
+    call <SID>hi("MatchParen",    s:gui02, s:gui05, s:cterm02, s:cterm05, "none")
+    call <SID>hi("PMenu",         s:gui05, s:gui03, s:cterm05, s:cterm03, "none")
+    call <SID>hi("PMenuSel",      s:gui05, s:gui03, s:cterm05, s:cterm03, "reverse")
+    call <SID>hi("TabLine",       s:gui05, s:gui01, s:cterm05, s:cterm01, "reverse")
+    call <SID>hi("TabLineFill",   s:gui06, s:gui01, s:cterm06, s:cterm01, "reverse")
+    call <SID>hi("TabLineSel",    s:gui06, s:gui01, s:cterm06, s:cterm01, "reverse")
+  end
 endif
+
+" Syntax Highlighting
+call <SID>hi("Boolean",      s:gui09, "", s:cterm09, "", "")
+call <SID>hi("Character",    s:gui08, "", s:cterm08, "", "")
+call <SID>hi("Comment",      s:gui03, "", s:cterm03, "", "")
+call <SID>hi("Conditional",  s:gui08, "", s:cterm08, "", "")
+call <SID>hi("Constant",     s:gui09, "", s:cterm09, "", "")
+call <SID>hi("Define",       s:gui0E, "", s:cterm0E, "", "none")
+call <SID>hi("Delimiter",    s:gui05, "", s:cterm05, "", "")
+call <SID>hi("Float",        s:gui09, "", s:cterm09, "", "")
+call <SID>hi("Function",     s:gui0D, "", s:cterm0D, "", "")
+call <SID>hi("Identifier",   s:gui08, "", s:cterm08, "", "none")
+call <SID>hi("Include",      s:gui0D, "", s:cterm0D, "", "")
+call <SID>hi("Keyword",      s:gui0E, "", s:cterm0E, "", "")
+call <SID>hi("Label",        s:gui0A, "", s:cterm0A, "", "")
+call <SID>hi("Number",       s:gui09, "", s:cterm09, "", "")
+call <SID>hi("Operator",     s:gui05, "", s:cterm05, "", "none")
+call <SID>hi("PreProc",      s:gui0A, "", s:cterm0A, "", "")
+call <SID>hi("Repeat",       s:gui0A, "", s:cterm0A, "", "")
+call <SID>hi("Special",      s:gui0C, "", s:cterm0C, "", "")
+call <SID>hi("SpecialChar",  s:gui0F, "", s:cterm0F, "", "")
+call <SID>hi("SpecialKey",   s:gui0F, "", s:cterm0F, "", "")
+call <SID>hi("Statement",    s:gui08, "", s:cterm08, "", "")
+call <SID>hi("StorageClass", s:gui0A, "", s:cterm0A, "", "")
+call <SID>hi("String",       s:gui0B, "", s:cterm0B, "", "")
+call <SID>hi("Structure",    s:gui0E, "", s:cterm0E, "", "")
+call <SID>hi("Tag",          s:gui0A, "", s:cterm0A, "", "")
+call <SID>hi("Title",        s:gui0D, s:gui00, s:cterm0D, s:cterm00, "none")
+call <SID>hi("Todo",         s:gui03, s:gui01, s:cterm03, s:cterm01, "")
+call <SID>hi("Type",         s:gui09, "", s:cterm09, "", "none")
+call <SID>hi("Typedef",      s:gui0A, "", s:cterm0A, "", "")
+
+" Spelling Highlighting
+call <SID>hi("SpellBad",     s:gui08, "", s:cterm08, "", "")
+"call <SID>hi("SpellCap",    s:gui08, "", s:cterm08, "", "")
+"call <SID>hi("SpellRare",   s:gui08, "", s:cterm08, "", "")
+"call <SID>hi("SpellLocal",  s:gui08, "", s:cterm08, "", "")
+
+" Diff Highlighting
+call <SID>hi("DiffAdded",    s:gui0B, "", s:cterm0B, "", "reverse")
+call <SID>hi("DiffFile",     s:gui08, "", s:cterm08, "", "")
+call <SID>hi("DiffNewFile",  s:gui0B, "", s:cterm0B, "", "")
+call <SID>hi("DiffLine",     s:gui0D, "", s:cterm0D, "", "")
+call <SID>hi("DiffRemoved",  s:gui08, "", s:cterm08, "", "reverse")
+
+" Ruby Highlighting
+call <SID>hi("rubyAttribute",               s:gui0D, "", s:cterm0D, "", "")
+call <SID>hi("rubyConstant",                s:gui0A, "", s:cterm0A, "", "")
+call <SID>hi("rubyInterpolation",           s:gui0B, "", s:cterm0B, "", "")
+call <SID>hi("rubyInterpolationDelimiter",  s:gui0F, "", s:cterm0F, "", "")
+call <SID>hi("rubyRegexp",                  s:gui0C, "", s:cterm0C, "", "")
+call <SID>hi("rubySymbol",                  s:gui0B, "", s:cterm0B, "", "")
+
+" PHP Highlighting
+call <SID>hi("phpMemberSelector",  s:gui05, "", s:cterm05, "", "")
+
+" HTML Highlighting
+call <SID>hi("htmlBold",    s:gui0A, "", s:cterm0A, "", "")
+call <SID>hi("htmlItalic",  s:gui0E, "", s:cterm0E, "", "")
+call <SID>hi("htmlEndTag",  s:gui05, "", s:cterm05, "", "")
+call <SID>hi("htmlTag",     s:gui05, "", s:cterm05, "", "")
+
+" CSS Highlighting
+call <SID>hi("cssBraces",      s:gui05, "", s:cterm05, "", "")
+call <SID>hi("cssClassName",   s:gui0E, "", s:cterm0E, "", "")
+call <SID>hi("cssColor",       s:gui0C, "", s:cterm0C, "", "")
+
+" Markdown Highlighting
+call <SID>hi("markdownCode",              s:gui0B, "", s:cterm0B, "", "")
+call <SID>hi("markdownCodeBlock",         s:gui0B, "", s:cterm0B, "", "")
+call <SID>hi("markdownHeadingDelimiter",  s:gui0D, "", s:cterm0D, "", "")
+
+" Git Highlighting
+call <SID>hi("gitCommitOverflow",  s:gui08, "", s:cterm08, "", "")
+call <SID>hi("gitCommitSummary",   s:gui0B, "", s:cterm0B, "", "")
+
+" Remove Highlighting Function
+delf <SID>hi
+
+" Remove Colour Variables
+unlet s:gui00 s:gui01 s:gui02 s:gui03  s:gui04  s:gui05  s:gui06  s:gui07  s:gui08  s:gui09 s:gui0A  s:gui0B  s:gui0C  s:gui0D  s:gui0E  s:gui0F
+unlet s:cterm00 s:cterm01 s:cterm02 s:cterm03 s:cterm04 s:cterm05 s:cterm06 s:cterm07 s:cterm08 s:cterm09 s:cterm0A s:cterm0B s:cterm0C s:cterm0D s:cterm0E s:cterm0F
