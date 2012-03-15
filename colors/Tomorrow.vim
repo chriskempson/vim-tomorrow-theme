@@ -58,7 +58,7 @@ fun! <SID>hi(group, guifg, guibg, ctermfg, ctermbg, attr)
   endif
   if a:attr != ""
     exec "hi " . a:group . " gui=" . a:attr . " cterm=" . a:attr
-  endif 
+  endif
 endfun
 
 " Vim Editor Colours
@@ -95,7 +95,7 @@ if &background == "dark"
   call <SID>hi("StatusLine",    s:gui03, s:gui01, s:cterm03, s:cterm01, "none")
   call <SID>hi("StatusLineNC",  s:gui03, s:gui01, s:cterm03, s:cterm01, "none")
   call <SID>hi("VertSplit",     s:gui02, s:gui02, s:cterm02, s:cterm02, "none")
-  
+
   if version >= 700
     call <SID>hi("ColorColumn",  "", s:gui01, "", s:cterm01, "none")
     call <SID>hi("CursorColumn",  "", s:gui01, "", s:cterm01, "none")
@@ -116,7 +116,7 @@ else
   call <SID>hi("StatusLine",    s:gui04, s:gui06, s:cterm04, s:cterm06, "none")
   call <SID>hi("StatusLineNC",  s:gui04, s:gui06, s:cterm04, s:cterm06, "none")
   call <SID>hi("VertSplit",     s:gui05, s:gui05, s:cterm05, s:cterm05, "none")
-  
+
   if version >= 700
     call <SID>hi("CursorColumn",  "", s:gui06, "", s:cterm06, "none")
     call <SID>hi("CursorLine",    "", s:gui06, "", s:cterm06, "none")
@@ -155,15 +155,15 @@ call <SID>hi("String",       s:gui0B, "", s:cterm0B, "", "")
 call <SID>hi("Structure",    s:gui0E, "", s:cterm0E, "", "")
 call <SID>hi("Tag",          s:gui0A, "", s:cterm0A, "", "")
 call <SID>hi("Title",        s:gui0D, s:gui00, s:cterm0D, s:cterm00, "none")
-call <SID>hi("Todo",         s:gui03, s:gui01, s:cterm03, s:cterm01, "")
+call <SID>hi("Todo",         s:gui0A, s:gui01, s:cterm0A, s:cterm01, "")
 call <SID>hi("Type",         s:gui09, "", s:cterm09, "", "none")
 call <SID>hi("Typedef",      s:gui0A, "", s:cterm0A, "", "")
 
 " Spelling Highlighting
-call <SID>hi("SpellBad",     s:gui08, "", s:cterm08, "", "")
-"call <SID>hi("SpellCap",    s:gui08, "", s:cterm08, "", "")
-"call <SID>hi("SpellRare",   s:gui08, "", s:cterm08, "", "")
-"call <SID>hi("SpellLocal",  s:gui08, "", s:cterm08, "", "")
+call <SID>hi("SpellBad",     s:gui00, s:gui08, s:cterm00, s:cterm08, "")
+"call <SID>hi("SpellCap",    s:gui00, s:gui08, s:cterm00, s:cterm08, "")
+"call <SID>hi("SpellRare",   s:gui00, s:gui08, s:cterm00, s:cterm08, "")
+"call <SID>hi("SpellLocal",  s:gui00, s:gui08, s:cterm00, s:cterm08, "")
 
 " Diff Highlighting
 call <SID>hi("DiffAdded",    s:gui0B, "", s:cterm0B, "", "reverse")
