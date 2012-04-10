@@ -103,9 +103,9 @@ if &background == "dark"
     call <SID>hi("MatchParen",    s:gui02, s:gui05, s:cterm02, s:cterm05, "none")
     call <SID>hi("PMenu",         s:gui04, s:gui01, s:cterm04, s:cterm01, "none")
     call <SID>hi("PMenuSel",      s:gui04, s:gui01, s:cterm04, s:cterm01, "reverse")
-    call <SID>hi("TabLine",       s:gui05, s:gui01, s:cterm05, s:cterm01, "reverse")
+    call <SID>hi("TabLine",       s:gui06, s:gui01, s:cterm06, s:cterm01, "reverse")
     call <SID>hi("TabLineFill",   s:gui06, s:gui01, s:cterm06, s:cterm01, "reverse")
-    call <SID>hi("TabLineSel",    s:gui06, s:gui01, s:cterm06, s:cterm01, "reverse")
+    call <SID>hi("TabLineSel",    s:gui05, s:gui01, s:cterm05, s:cterm01, "reverse")
   end
 else
   call <SID>hi("Cursor",        s:gui02, "", s:cterm02, "", "")
@@ -123,9 +123,9 @@ else
     call <SID>hi("MatchParen",    s:gui02, s:gui05, s:cterm02, s:cterm05, "none")
     call <SID>hi("PMenu",         s:gui05, s:gui03, s:cterm05, s:cterm03, "none")
     call <SID>hi("PMenuSel",      s:gui05, s:gui03, s:cterm05, s:cterm03, "reverse")
-    call <SID>hi("TabLine",       s:gui05, s:gui01, s:cterm05, s:cterm01, "reverse")
+    call <SID>hi("TabLine",       s:gui06, s:gui01, s:cterm06, s:cterm01, "reverse")
     call <SID>hi("TabLineFill",   s:gui06, s:gui01, s:cterm06, s:cterm01, "reverse")
-    call <SID>hi("TabLineSel",    s:gui06, s:gui01, s:cterm06, s:cterm01, "reverse")
+    call <SID>hi("TabLineSel",    s:gui05, s:gui01, s:cterm05, s:cterm01, "reverse")
   end
 endif
 
