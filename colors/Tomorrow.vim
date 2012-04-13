@@ -177,8 +177,9 @@ call <SID>hi("rubyAttribute",               s:gui0D, "", s:cterm0D, "", "")
 call <SID>hi("rubyConstant",                s:gui0A, "", s:cterm0A, "", "")
 call <SID>hi("rubyInterpolation",           s:gui0B, "", s:cterm0B, "", "")
 call <SID>hi("rubyInterpolationDelimiter",  s:gui0F, "", s:cterm0F, "", "")
-call <SID>hi("rubyRegexp",                  s:gui0C, "", s:cterm0C, "", "")
-call <SID>hi("rubySymbol",                  s:gui0B, "", s:cterm0B, "", "")
+call <SID>hi("rubyRegexp",                  s:gui0F, "", s:cterm0F, "", "")
+call <SID>hi("rubySymbol",                  s:gui0C, "", s:cterm0C, "", "")
+call <SID>hi("rubyStringDelimiter",         s:gui0E, "", s:cterm0E, "", "")
 
 " PHP Highlighting
 call <SID>hi("phpMemberSelector",  s:gui05, "", s:cterm05, "", "")
