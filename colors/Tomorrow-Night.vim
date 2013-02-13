@@ -388,6 +388,14 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	call <SID>X("goDeclType", s:blue, "", "")
 	call <SID>X("goBuiltins", s:purple, "", "")
 
+	" Lua Highlighting
+	call <SID>X("luaStatement", s:purple, "", "")
+	call <SID>X("luaRepeat", s:purple, "", "")
+	call <SID>X("luaCondStart", s:purple, "", "")
+	call <SID>X("luaCondElseif", s:purple, "", "")
+	call <SID>X("luaCond", s:purple, "", "")
+	call <SID>X("luaCondEnd", s:purple, "", "")
+
 	" Delete Functions
 	delf <SID>X
 	delf <SID>rgb
