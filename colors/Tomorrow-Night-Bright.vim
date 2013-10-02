@@ -17,6 +17,8 @@ let s:aqua = "70c0b1"
 let s:blue = "7aa6da"
 let s:purple = "c397d8"
 let s:window = "4d5057"
+let s:diffbackground = "8b0000"
+
 
 set background=dark
 hi clear
@@ -338,10 +340,8 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	call <SID>X("htmlScriptTag", s:red, "", "")
 
 	" Diff Highlighting
-  let s:diffbackground = "8B0000"
-
-	call <SID>X("diffAdded", s:green, "", "")
-	call <SID>X("diffRemoved", s:red, "", "")
+	call <SID>X("diffAdded", s:green, s:diffbackground, "")
+	call <SID>X("diffRemoved", s:red, s:diffbackground, "")
   call <SID>X("DiffAdd", s:green, s:diffbackground, "")
   call <SID>X("DiffDelete", s:red, s:diffbackground, "")
   call <SID>X("DiffChange", s:yellow, s:diffbackground, "")
