@@ -26,7 +26,6 @@ if !has("gui_running")
 	let s:selection = "585858"
 end
 
-set background=dark
 hi clear
 syntax reset
 
@@ -246,7 +245,8 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	call <SID>X("NonText", s:selection, "", "")
 	call <SID>X("SpecialKey", s:selection, "", "")
 	call <SID>X("Search", s:background, s:yellow, "")
-	call <SID>X("TabLine", s:foreground, s:background, "reverse")
+	call <SID>X("TabLine", s:window, s:foreground, "reverse")
+	call <SID>X("TabLineFill", s:window, s:foreground, "reverse")
 	call <SID>X("StatusLine", s:window, s:yellow, "reverse")
 	call <SID>X("StatusLineNC", s:window, s:foreground, "reverse")
 	call <SID>X("VertSplit", s:window, s:window, "none")
@@ -310,6 +310,7 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	" Ruby Highlighting
 	call <SID>X("rubySymbol", s:green, "", "")
 	call <SID>X("rubyConstant", s:yellow, "", "")
+	call <SID>X("rubyAccess", s:yellow, "", "")
 	call <SID>X("rubyAttribute", s:blue, "", "")
 	call <SID>X("rubyInclude", s:blue, "", "")
 	call <SID>X("rubyLocalVariableOrMethod", s:orange, "", "")
@@ -318,6 +319,8 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	call <SID>X("rubyInterpolationDelimiter", s:orange, "", "")
 	call <SID>X("rubyConditional", s:purple, "", "")
 	call <SID>X("rubyRepeat", s:purple, "", "")
+	call <SID>X("rubyControl", s:purple, "", "")
+	call <SID>X("rubyException", s:purple, "", "")
 
 	" Python Highlighting
 	call <SID>X("pythonInclude", s:purple, "", "")
@@ -326,10 +329,9 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	call <SID>X("pythonRepeat", s:purple, "", "")
 	call <SID>X("pythonException", s:purple, "", "")
 	call <SID>X("pythonFunction", s:blue, "", "")
-
-	" CoffeeScript Highlighting
-	call <SID>X("coffeeKeyword", s:purple, "", "")
-	call <SID>X("coffeeConditional", s:purple, "", "")
+	call <SID>X("pythonPreCondit", s:purple, "", "")
+	call <SID>X("pythonRepeat", s:aqua, "", "")
+	call <SID>X("pythonExClass", s:orange, "", "")
 
 	" JavaScript Highlighting
 	call <SID>X("javaScriptBraces", s:foreground, "", "")
@@ -338,6 +340,9 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	call <SID>X("javaScriptRepeat", s:purple, "", "")
 	call <SID>X("javaScriptNumber", s:orange, "", "")
 	call <SID>X("javaScriptMember", s:orange, "", "")
+    call <SID>X("javascriptNull", s:orange, "", "")
+    call <SID>X("javascriptGlobal", s:blue, "", "")
+    call <SID>X("javascriptStatement", s:red, "", "")
 
 	" HTML Highlighting
 	call <SID>X("htmlTag", s:red, "", "")
@@ -346,20 +351,105 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	call <SID>X("htmlScriptTag", s:red, "", "")
 
 	" Diff Highlighting
-  let s:diffbackground = "494e56"
-
 	call <SID>X("diffAdded", s:green, "", "")
 	call <SID>X("diffRemoved", s:red, "", "")
-  call <SID>X("DiffAdd", s:green, s:diffbackground, "")
-  call <SID>X("DiffDelete", s:red, s:diffbackground, "")
-  call <SID>X("DiffChange", s:yellow, s:diffbackground, "")
-  call <SID>X("DiffText", s:diffbackground, s:orange, "")
 
-    " ShowMarks Highlighting
-    call <SID>X("ShowMarksHLl", s:orange, s:background, "none")
-    call <SID>X("ShowMarksHLo", s:purple, s:background, "none")
-    call <SID>X("ShowMarksHLu", s:yellow, s:background, "none")
-    call <SID>X("ShowMarksHLm", s:aqua, s:background, "none")
+	" ShowMarks Highlighting
+	call <SID>X("ShowMarksHLl", s:orange, s:background, "none")
+	call <SID>X("ShowMarksHLo", s:purple, s:background, "none")
+	call <SID>X("ShowMarksHLu", s:yellow, s:background, "none")
+	call <SID>X("ShowMarksHLm", s:aqua, s:background, "none")
+
+	" Cucumber Highlighting
+	call <SID>X("cucumberGiven", s:blue, "", "")
+	call <SID>X("cucumberGivenAnd", s:blue, "", "")
+
+	" Go Highlighting
+	call <SID>X("goDirective", s:purple, "", "")
+	call <SID>X("goDeclaration", s:purple, "", "")
+	call <SID>X("goStatement", s:purple, "", "")
+	call <SID>X("goConditional", s:purple, "", "")
+	call <SID>X("goConstants", s:orange, "", "")
+	call <SID>X("goTodo", s:yellow, "", "")
+	call <SID>X("goDeclType", s:blue, "", "")
+	call <SID>X("goBuiltins", s:purple, "", "")
+
+	" Lua Highlighting
+	call <SID>X("luaStatement", s:purple, "", "")
+	call <SID>X("luaRepeat", s:purple, "", "")
+	call <SID>X("luaCondStart", s:purple, "", "")
+	call <SID>X("luaCondElseif", s:purple, "", "")
+	call <SID>X("luaCond", s:purple, "", "")
+	call <SID>X("luaCondEnd", s:purple, "", "")
+	
+	" Clojure "highlighting
+	call <SID>X("clojureConstant", s:orange, "", "")
+	call <SID>X("clojureBoolean", s:orange, "", "")
+	call <SID>X("clojureCharacter", s:orange, "", "")
+	call <SID>X("clojureKeyword", s:green, "", "")
+	call <SID>X("clojureNumber", s:orange, "", "")
+	call <SID>X("clojureString", s:green, "", "")
+	call <SID>X("clojureRegexp", s:green, "", "")
+	call <SID>X("clojureParen", s:aqua, "", "")
+	call <SID>X("clojureVariable", s:yellow, "", "")
+	call <SID>X("clojureCond", s:blue, "", "")
+	call <SID>X("clojureDefine", s:purple, "", "")
+	call <SID>X("clojureException", s:red, "", "")
+	call <SID>X("clojureFunc", s:blue, "", "")
+	call <SID>X("clojureMacro", s:blue, "", "")
+	call <SID>X("clojureRepeat", s:blue, "", "")
+	call <SID>X("clojureSpecial", s:purple, "", "")
+	call <SID>X("clojureQuote", s:blue, "", "")
+	call <SID>X("clojureUnquote", s:blue, "", "")
+	call <SID>X("clojureMeta", s:blue, "", "")
+	call <SID>X("clojureDeref", s:blue, "", "")
+	call <SID>X("clojureAnonArg", s:blue, "", "")
+	call <SID>X("clojureRepeat", s:blue, "", "")
+	call <SID>X("clojureDispatch", s:blue, "", "")
+	
+	" Scala "highlighting
+	call <SID>X("scalaKeyword", s:purple, "", "")
+	call <SID>X("scalaKeywordModifier", s:purple, "", "")
+	call <SID>X("scalaOperator", s:blue, "", "")
+	call <SID>X("scalaPackage", s:red, "", "")
+	call <SID>X("scalaFqn", s:foreground, "", "")
+	call <SID>X("scalaFqnSet", s:foreground, "", "")
+	call <SID>X("scalaImport", s:purple, "", "")
+	call <SID>X("scalaBoolean", s:orange, "", "")
+	call <SID>X("scalaDef", s:purple, "", "")
+	call <SID>X("scalaVal", s:purple, "", "")
+	call <SID>X("scalaVar", s:aqua, "", "")
+	call <SID>X("scalaClass", s:purple, "", "")
+	call <SID>X("scalaObject", s:purple, "", "")
+	call <SID>X("scalaTrait", s:purple, "", "")
+	call <SID>X("scalaDefName", s:blue, "", "")
+	call <SID>X("scalaValName", s:foreground, "", "")
+	call <SID>X("scalaVarName", s:foreground, "", "")
+	call <SID>X("scalaClassName", s:foreground, "", "")
+	call <SID>X("scalaType", s:yellow, "", "")
+	call <SID>X("scalaTypeSpecializer", s:yellow, "", "")
+	call <SID>X("scalaAnnotation", s:orange, "", "")
+	call <SID>X("scalaNumber", s:orange, "", "")
+	call <SID>X("scalaDefSpecializer", s:yellow, "", "")
+	call <SID>X("scalaClassSpecializer", s:yellow, "", "")
+	call <SID>X("scalaBackTick", s:green, "", "")
+	call <SID>X("scalaRoot", s:foreground, "", "")
+	call <SID>X("scalaMethodCall", s:blue, "", "")
+	call <SID>X("scalaCaseType", s:yellow, "", "")
+	call <SID>X("scalaLineComment", s:comment, "", "")
+	call <SID>X("scalaComment", s:comment, "", "")
+	call <SID>X("scalaDocComment", s:comment, "", "")
+	call <SID>X("scalaDocTags", s:comment, "", "")
+	call <SID>X("scalaEmptyString", s:green, "", "")
+	call <SID>X("scalaMultiLineString", s:green, "", "")
+	call <SID>X("scalaUnicode", s:orange, "", "")
+	call <SID>X("scalaString", s:green, "", "")
+	call <SID>X("scalaStringEscape", s:green, "", "")
+	call <SID>X("scalaSymbol", s:orange, "", "")
+	call <SID>X("scalaChar", s:orange, "", "")
+	call <SID>X("scalaXml", s:green, "", "")
+	call <SID>X("scalaConstructorSpecializer", s:yellow, "", "")
+	call <SID>X("scalaBackTick", s:blue, "", "")
 
 	" Delete Functions
 	delf <SID>X
@@ -372,3 +462,5 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	delf <SID>grey_level
 	delf <SID>grey_number
 endif
+
+set background=dark
