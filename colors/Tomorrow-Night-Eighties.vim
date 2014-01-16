@@ -17,7 +17,7 @@ let s:aqua = "009999"
 let s:blue = "99cccc"
 let s:purple = "cc99cc"
 let s:window = "4d5057"
-let s:diffbackground = "003535"
+let s:diffbackground = "4A6F6F"
 
 set background=dark
 hi clear
@@ -344,7 +344,7 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
   call <SID>X("DiffAdd", s:green, s:diffbackground, "")
   call <SID>X("DiffDelete", s:red, s:diffbackground, "")
   call <SID>X("DiffChange", s:yellow, s:diffbackground, "")
-  call <SID>X("DiffText", s:diffbackground, s:orange, "")
+  call <SID>X("DiffText", s:diffbackground, s:foreground, "")
 
 	" Delete Functions
 	delf <SID>X
