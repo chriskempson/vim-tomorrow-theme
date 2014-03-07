@@ -12,6 +12,7 @@ let s:comment = "8e908c"
 let s:red = "c82829"
 let s:orange = "f5871f"
 let s:yellow = "eab700"
+let s:brightyellow = "ffff00"
 let s:green = "718c00"
 let s:aqua = "3e999f"
 let s:blue = "4271ae"
@@ -237,8 +238,8 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	highlight LineNr term=bold cterm=NONE ctermfg=LightGray ctermbg=NONE gui=NONE guifg=LightGray guibg=NONE
 	call <SID>X("NonText", s:selection, "", "")
 	call <SID>X("SpecialKey", s:selection, "", "")
-	call <SID>X("Search", s:foreground, s:yellow, "")
-	call <SID>X("TabLine", s:window, s:foreground, "reverse")
+	call <SID>X("Search", s:foreground, s:brightyellow, "")
+	call <SID>X("TabLine", s:foreground, s:background, "reverse")
 	call <SID>X("TabLineFill", s:window, s:foreground, "reverse")
 	call <SID>X("StatusLine", s:foreground, s:background, "reverse")
 	call <SID>X("WildMenu", s:green, s:background, "reverse")
