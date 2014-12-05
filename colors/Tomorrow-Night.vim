@@ -17,6 +17,8 @@ let s:aqua = "8abeb7"
 let s:blue = "81a2be"
 let s:purple = "b294bb"
 let s:window = "4d5057"
+let s:diffbackground = "494e56"
+
 
 " Console 256 Colours
 if !has("gui_running")
@@ -355,20 +357,18 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	call <SID>X("htmlScriptTag", s:red, "", "")
 
 	" Diff Highlighting
-  let s:diffbackground = "494e56"
-
-	call <SID>X("diffAdded", s:green, "", "")
-	call <SID>X("diffRemoved", s:red, "", "")
+	call <SID>X("diffAdded", s:green, s:diffbackground, "")
+	call <SID>X("diffRemoved", s:red, s:diffbackground, "")
   call <SID>X("DiffAdd", s:green, s:diffbackground, "")
   call <SID>X("DiffDelete", s:red, s:diffbackground, "")
   call <SID>X("DiffChange", s:yellow, s:diffbackground, "")
-  call <SID>X("DiffText", s:diffbackground, s:orange, "")
+  call <SID>X("DiffText", s:diffbackground, s:foreground, "")
 
-    " ShowMarks Highlighting
-    call <SID>X("ShowMarksHLl", s:orange, s:background, "none")
-    call <SID>X("ShowMarksHLo", s:purple, s:background, "none")
-    call <SID>X("ShowMarksHLu", s:yellow, s:background, "none")
-    call <SID>X("ShowMarksHLm", s:aqua, s:background, "none")
+  " ShowMarks Highlighting
+  call <SID>X("ShowMarksHLl", s:orange, s:background, "none")
+  call <SID>X("ShowMarksHLo", s:purple, s:background, "none")
+  call <SID>X("ShowMarksHLu", s:yellow, s:background, "none")
+  call <SID>X("ShowMarksHLm", s:aqua, s:background, "none")
 
 	" Delete Functions
 	delf <SID>X
