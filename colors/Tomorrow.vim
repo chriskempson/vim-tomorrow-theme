@@ -5,7 +5,7 @@
 
 " Default GUI Colours
 let s:foreground = "4d4d4c"
-let s:background = "fafafa"
+let s:background = "ffffff"
 let s:selection = "d6d6d6"
 let s:line = "efefef"
 let s:comment = "8e908c"
@@ -17,7 +17,7 @@ let s:aqua = "3e999f"
 let s:blue = "4271ae"
 let s:purple = "8959a8"
 let s:window = "efefef"
-let s:diffbackground = "fffffa"
+let s:diffbackground = "fafafa"
 
 set background=light
 hi clear
@@ -235,7 +235,8 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 
 	" Vim Highlighting
 	call <SID>X("Normal", s:foreground, s:background, "")
-  highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
+  call <SID>X("LineNr", s:foreground, s:line, "")
+  call <SID>X("CursorLineNr", s:foreground, s:selection, "reverse")
 	call <SID>X("NonText", s:selection, "", "")
 	call <SID>X("SpecialKey", s:selection, "", "")
 	call <SID>X("Search", s:foreground, s:yellow, "")
@@ -250,8 +251,8 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	call <SID>X("Question", s:green, "", "")
 	call <SID>X("WarningMsg", s:red, "", "")
 	call <SID>X("MatchParen", "", s:selection, "")
-	call <SID>X("Folded", s:comment, s:background, "")
-	call <SID>X("FoldColumn", s:comment, s:background, "")
+	call <SID>X("Folded", s:comment, s:selection, "")
+	call <SID>X("FoldColumn", s:comment, s:selection, "")
 	if version >= 700
 		call <SID>X("CursorLine", "", s:line, "none")
 		call <SID>X("CursorColumn", "", s:line, "none")
@@ -282,7 +283,6 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	call <SID>X("Define", s:purple, "", "none")
 	call <SID>X("Include", s:blue, "", "")
 	"call <SID>X("Ignore", "666666", "", "")
-	highlight Cursor term=NONE cterm=NONE ctermfg=white ctermbg=black guifg=white guibg=black
 
 	" Vim Highlighting
 	call <SID>X("vimCommand", s:red, "", "none")
@@ -353,7 +353,7 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	call <SID>X("diffRemoved", s:red, s:diffbackground, "")
   call <SID>X("DiffAdd", s:green, s:diffbackground, "")
   call <SID>X("DiffDelete", s:red, s:diffbackground, "")
-  call <SID>X("DiffChange", s:yellow, s:diffbackground, "")
+  call <SID>X("DiffChange", s:orange, s:diffbackground, "")
   call <SID>X("DiffText", s:diffbackground, s:foreground, "")
 
 	" Delete Functions
