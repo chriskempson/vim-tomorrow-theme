@@ -262,6 +262,12 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 		call <SID>X("ColorColumn", "", s:line, "none")
 	end
 
+	" Cursor
+	call <SID>X("Cursor", "", "", "reverse")
+	call <SID>X("vCursor", "", "", "reverse")
+	call <SID>X("iCursor", "", "", "reverse")
+	call <SID>X("lCursor", "", "", "reverse")
+
 	" Standard Highlighting
 	call <SID>X("Comment", s:comment, "", "")
 	call <SID>X("Todo", s:comment, s:background, "")
