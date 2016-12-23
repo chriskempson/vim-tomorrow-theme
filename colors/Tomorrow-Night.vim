@@ -293,6 +293,19 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	" Vim Highlighting
 	call <SID>X("vimCommand", s:red, "", "none")
 
+	" Go Highlighting
+	call <SID>X("Keyword", s:purple, "", "")
+	call <SID>X("Statement", s:purple, "", "")
+	call <SID>X("Label", s:purple, "", "")
+	call <SID>X("Repeat", s:purple, "", "")
+	call <SID>X("Repeat", s:purple, "", "")
+	call <SID>X("Character", s:green, "", "")
+	call <SID>X("Error", s:red, "", "")
+	call <SID>X("Special", s:red, "", "")
+	call <SID>X("Number", s:red, "", "")
+	call <SID>X("Float", s:red, "", "")
+	call <SID>X("Conditional", s:purple, "", "")
+
 	" C Highlighting
 	call <SID>X("cType", s:yellow, "", "")
 	call <SID>X("cStorageClass", s:purple, "", "")
